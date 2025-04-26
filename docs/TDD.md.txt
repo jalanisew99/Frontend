@@ -1,0 +1,13 @@
+# Technicle Design Document (TDD)
+
+## Architectuer overview
+- Frontend: html/CS/JavaScript
+- Backend: MongoDB
+- Hosting: Github Pages and Vercel
+- Real time updates with Vercel
+
+## Technologies Used
+- Vercel
+- MongoDB
+- JavaScript for logic
+- TML/CSS for layout

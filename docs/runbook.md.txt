@@ -1,0 +1,20 @@
+# Operations Runbook
+
+## How To Run The App
+1. Click the link next open brownser
+2. Make sure .env has correct credential
+3.
+4. Save links via the forms
+
+## How to Deploy
+- Option 1: Host on MongoDB hosting
+- option 2: Push via github page
+- option 2 :Deploy in Vercel
+
+## How to troubleshoot
+- Open browser console 
+- check for MongoDB connection or MOngoDB issues
+
+## Recovery Tips
+- Cheks MongoDB  logs in MongoDB console
+- Re deploye or restore "Home.js" if needed
