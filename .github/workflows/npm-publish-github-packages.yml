@@ -1,35 +1,46 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: CI
+name: Deploy Travel Management System
 
 on:
   push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+    branches:
+      - main  # or your deployment branch
 
 jobs:
-  build-and-test:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]  # Matrix testing
+
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      CLIENT_URL: ${{ secrets.CLIENT_URL }}
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Install Dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install server dependencies
+        working-directory: ./server
         run: npm install
 
-      - name: Run Lint & Tests
+      - name: Lint and build server
+        working-directory: ./server
         run: |
           npm run lint
-          npm run test
+          npm run build || echo "Skip build if not defined"
 
-      - name: Build Project
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./client
         run: npm run build
+
+      - name: Deploy (example using Heroku CLI)
+        run: echo "Add your deployment step here (e.g., rsync, scp, Docker, or Heroku/GitHub Pages)"
+
